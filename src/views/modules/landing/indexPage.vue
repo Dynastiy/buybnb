@@ -1,31 +1,31 @@
 <template>
   <div>
-    <div class="hero--section">
+    <div class="hero--section" id="top">
       <div class="container">
-        <h1>Buy or Sell <span class="span">BNB</span> Instantly in <span class="text-success">NGN</span></h1>
+        <h1>Buy <span class="span">BNB</span> Instantly with <span class="text-success">NGN</span></h1>
         <div class="prices">
           <div class="price--options price--options-1">
-            <h4>NGN 200,000</h4>
+            <h4>&#8358; 100,000</h4>
             <h6 class="my-3">Get</h6>
-            <h2>0.3444 <span class="span2">BNB</span> </h2>
+            <h2>  ~{{ (100000 / (naira_rate*bnb_rate)).toFixed(4) }} <span class="span2">BNB</span> </h2>
             <button class="buy--btn">Buy</button>
           </div>
           <div class="price--options price--options-2">
-            <h4>NGN 200,000</h4>
+            <h4>&#8358; 200,000</h4>
             <h6 class="my-3">Get</h6>
-            <h2>0.3444 <span class="span2">BNB</span></h2>
+            <h2>  ~{{ (200000 / (naira_rate*bnb_rate)).toFixed(4) }} <span class="span2">BNB</span></h2>
             <button class="buy--btn">Buy</button>
           </div>
           <div class="price--options price--options-3">
-            <h4>NGN 200,000</h4>
+            <h4>&#8358; 500,000</h4>
             <h6 class="my-3">Get</h6>
-            <h2>0.3444<span class="span2">BNB</span></h2>
+            <h2> ~{{ (500000 / (naira_rate*bnb_rate)).toFixed(4) }}<span class="span2">BNB</span></h2>
             <button class="buy--btn">Buy</button>
           </div>
           <div class="price--options price--options-4">
-            <h4>NGN 200,000</h4>
+            <h4>&#8358; 1M</h4>
             <h6 class="my-3">Get</h6>
-            <h2>0.3444<span class="span2">BNB</span></h2>
+            <h2> ~{{ (1000000 / (naira_rate*bnb_rate)).toFixed(4) }}<span class="span2">BNB</span></h2>
             <button class="buy--btn">Buy</button>
           </div>
         </div>
@@ -36,15 +36,16 @@
       <div class="container">
           <h2 class="text-center mb-4">Enter your Amount</h2>
         <div class="amount--container">
-          <div>
-            <label class="text-left" for="">BNB</label>
-            <input type="number form-control" />
-          </div>
+          
           <div>
             <label class="text-left" for="">NGN</label>
-            <input type="number form-control" />
+            <input type="number form-control" v-model="amount_ngn" @keyup="exchange_ngn"/>
           </div>
-          <div><button class="buy--btn w-100">Buy</button></div>
+          <div>
+            <label class="text-left" for="">BNB</label>
+            <input type="number form-control" v-model="amount_bnb" @keyup="exchange_bnb"/>
+          </div>
+          <div><button class="buy--btn w-100" @click="showPaymentModal">Buy</button></div>
         </div>
       </div>
     </section>
@@ -67,5 +68,71 @@ You can logged into your dashboard to monitor your transaction STATUS if SUCCESF
             </div>
         </div>
     </section>
+
+
+    <!-- payment Modal  -->
+    <payment-modal v-show="paymentModal" @close="closeModal" />
+
+    <!-- BAck to Top -->
+    <back-to-top @btnClick="goToTop"></back-to-top>
   </div>
 </template>
+
+<script>
+import PaymentModal from '@/components/modals/paymentModal.vue';
+import BackToTop from '@/components/modals/backToTop.vue'
+import axios from 'axios'
+export default {
+    components:{
+        PaymentModal, BackToTop
+    },
+    data(){
+        return {
+            amount_bnb: '',
+            amount_ngn: '',
+            naira_rate: '',
+            bnb_rate: '',
+            paymentModal: false
+        }
+    },
+    methods: {
+        closeModal(){
+            this.paymentModal = false
+        },
+        showPaymentModal(){
+        this.paymentModal = true
+    },
+        getNaira(){
+      axios.get('https://v6.exchangerate-api.com/v6/068c19b21593d6f62990aa1b/pair/USD/NGN')
+        .then((response) => {
+          console.log(response.data.conversion_rate);
+          this.naira_rate = response.data.conversion_rate
+          // this.zuga_data = response.data
+          // console.log(this.zuga_data)
+        })
+    },
+    getBnB(){
+        axios.get('https://api.coincap.io/v2/assets/binance-coin')
+        .then((response)=>{
+            this.bnb_rate = response.data.data.priceUsd
+            console.log(this.bnb_rate);
+        })
+    },
+    exchange_ngn(){
+        let amount = Number(this.amount_ngn) / (this.bnb_rate * this.naira_rate);
+             this.amount_bnb = amount
+    },
+    exchange_bnb(){
+        let amount = this.amount_bnb * this.naira_rate * this.bnb_rate
+         this.amount_ngn = amount
+    },
+    goToTop(){
+    //    window.scrollTo(0, 0);
+    }
+    },
+    async created(){
+        this.getNaira();
+        this.getBnB();
+    }
+}
+</script>

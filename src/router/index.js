@@ -7,7 +7,6 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        name: 'home',
         component: HomeView,
         children: [{
             path: '/',
@@ -93,6 +92,9 @@ const routes = [{
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
+    scrollBehavior() {
+        return window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
     routes
 })
 

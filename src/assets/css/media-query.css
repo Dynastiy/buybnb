@@ -53,4 +53,7 @@
         .right__side {
             margin-top: 0.8rem;
         }
+        .payment-modal-content {
+            width: 80%;
+        }
     }
