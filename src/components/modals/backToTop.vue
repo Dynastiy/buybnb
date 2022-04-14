@@ -1,46 +1,41 @@
 <template>
   <div>
-    <div class="back-to-top" id="navbar" v-show="back_to_top">
-      <button class="back-to-top"  @click="buttonClick">
-          <span class="material-icons"> expand_less </span>
+    <div class="customer--care">
+      <div class="back-to-top" id="navbar" >
+      <button class="back-to-top" @click="buttonClick">
+        <span class="material-icons"> support_agent </span>
       </button>
+    </div>
+    <div>
+        <div class="popup" v-show="popup">
+          <div class="text-right p-1" >
+                <span class="material-icons text-danger font-weight-bold" @click="close" style="font-size: 24px">
+                    close
+                </span>
+            </div>
+          <h3>Hi there 👋</h3>
+          <p>We are here to help you buy BNB with NGN on buybnb.io. Ask us if you have any problem </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-            back_to_top: false
-        }
-    },
-    methods:{
-        buttonClick(){
-            this.$emit('btnClick')
-        }
-    },
-    mounted(){
-        // When the user scrolls the page, execute myFunction
-window.onscroll = function() {myFunction()};
-
-// Get the navbar
-var navbar = document.getElementById("navbar");
-
-// Get the offset position of the navbar
-var sticky = navbar.offsetTop;
-
-// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-      console.log(sticky);
-    // navbar.classList.add("sticky")
-    // this.back_to_top = true
-  } else {
-    // navbar.classList.remove("sticky");
-    // this.back_to_top = false
-  }
-}
-    }
-}
+  props: ["popup"],
+  data() {
+    return {
+      // back_to_top: false,
+    };
+  },
+  methods: {
+   close(){
+     this.$emit("closePopup")
+   },
+   buttonClick(){
+     this.$emit(" btnClick")
+   }
+  },
+};
 </script>

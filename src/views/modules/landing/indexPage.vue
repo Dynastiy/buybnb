@@ -98,7 +98,7 @@ You can logged into your dashboard to monitor your transaction STATUS if SUCCESF
     <payment-modal v-show="paymentModal" @close="closeModal" />
 
     <!-- BAck to Top -->
-    <back-to-top @btnClick="goToTop"></back-to-top>
+    <back-to-top @btnClick="goToTop" @closePopup="closePopup" :popup="popup"></back-to-top>
   </div>
 </template>
 
@@ -116,7 +116,8 @@ export default {
             amount_ngn: '',
             naira_rate: 590,
             bnb_rate: '',
-            paymentModal: false
+            paymentModal: false,
+            popup: true
         }
     },
     methods: {
@@ -142,8 +143,8 @@ export default {
             console.log(this.bnb_rate);
         })
     },
-    goToTelegram(){
-      window.location = "t.me/officialbuybnb"
+    closePopup(){
+      this.popup = false
     },
     exchange_ngn(){
         let amount = Number(this.amount_ngn) / (this.bnb_rate * this.naira_rate);
@@ -154,7 +155,7 @@ export default {
          this.amount_ngn = amount
     },
     goToTop(){
-    //    window.scrollTo(0, 0);
+       window.location = "#";
     }
     },
     async created(){
