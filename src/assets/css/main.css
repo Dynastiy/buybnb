@@ -664,3 +664,39 @@ br {
     /* top: 0; */
     /* width: 100%; */
 }
+
+.social--media {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social--media .social {
+    border-radius: 5px;
+    padding: 1rem 4rem;
+    color: #fff;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.125);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.social a {
+    color: #fff;
+}
+
+.social a:hover {
+    cursor: pointer
+}
+
+.whatsapp {
+    background-color: #1d9c16;
+}
+
+.telegram {
+    background-color: #007995;
+}

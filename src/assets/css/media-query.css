@@ -56,4 +56,10 @@
         .payment-modal-content {
             width: 80%;
         }
+        .social--media {
+            display: unset;
+        }
+        .social--media .social {
+            margin-top: 1.2rem;
+        }
     }

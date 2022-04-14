@@ -69,6 +69,30 @@ You can logged into your dashboard to monitor your transaction STATUS if SUCCESF
         </div>
     </section>
 
+    <section class="mt-4">
+      <div class="container">
+        <h2 class="text-center">
+          For Delayed Transactions
+        </h2>
+        <div class="social--media mt-4">
+          <div class="whatsapp social" >
+            <a href="#">
+            <span>START CHAT</span>
+            <img src="@/assets/img/whatsapp.svg" width="40" alt="">
+            </a>
+          </div>
+          <div class="telegram social">
+            <a href="https://t.me/officialbuybnb">
+            <span>
+              START CHAT
+            </span>
+            <img src="@/assets/img/telegram.svg" width="40" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- payment Modal  -->
     <payment-modal v-show="paymentModal" @close="closeModal" />
@@ -90,7 +114,7 @@ export default {
         return {
             amount_bnb: '',
             amount_ngn: '',
-            naira_rate: '',
+            naira_rate: 590,
             bnb_rate: '',
             paymentModal: false
         }
@@ -102,21 +126,24 @@ export default {
         showPaymentModal(){
         this.paymentModal = true
     },
-        getNaira(){
-      axios.get('https://v6.exchangerate-api.com/v6/068c19b21593d6f62990aa1b/pair/USD/NGN')
-        .then((response) => {
-          console.log(response.data.conversion_rate);
-          this.naira_rate = response.data.conversion_rate
+      //   getNaira(){
+      // axios.get('https://v6.exchangerate-api.com/v6/068c19b21593d6f62990aa1b/pair/USD/NGN')
+      //   .then((response) => {
+      //     console.log(response.data.conversion_rate);
+      //     this.naira_rate = response.data.conversion_rate
           // this.zuga_data = response.data
           // console.log(this.zuga_data)
-        })
-    },
+    //     })
+    // },
     getBnB(){
         axios.get('https://api.coincap.io/v2/assets/binance-coin')
         .then((response)=>{
             this.bnb_rate = response.data.data.priceUsd
             console.log(this.bnb_rate);
         })
+    },
+    goToTelegram(){
+      window.location = "t.me/officialbuybnb"
     },
     exchange_ngn(){
         let amount = Number(this.amount_ngn) / (this.bnb_rate * this.naira_rate);
@@ -131,7 +158,7 @@ export default {
     }
     },
     async created(){
-        this.getNaira();
+        // this.getNaira();
         this.getBnB();
     }
 }
