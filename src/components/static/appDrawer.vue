@@ -18,6 +18,14 @@
             </li>
           </ul>
         </li>
+        <!-- <li>
+          <a class="align-items-center d-flex" style="gap:15px" @click="logout" href="javascript:void(0)">
+            <span class="material-icons">
+            logout
+            </span>
+            <span> Logout </span>
+          </a>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -32,5 +40,11 @@ export default {
       menu: menu_items,
     };
   },
+  methods:{
+    // logout() {
+    //   this.$store.dispatch('logout');
+    //   this.$router.push('/signin');
+    // }
+  }
 };
 </script>

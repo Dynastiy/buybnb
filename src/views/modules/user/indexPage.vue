@@ -4,34 +4,34 @@
         <!-- Analytics  -->
         <section class="mt-4 analytics">
             <div class="price--options-1 price--options">
-                <h1>
-                    45
+                <h1  v-if="deposits">
+                    {{ totalDeposits }}
                 </h1>
-                <h6>Total Transactions</h6>
+                <h6>Total Deposits</h6>
             </div>
              <div class="price--options-2 price--options">
-                <h1>
-                    45
+                <h1 v-if="deposits">
+                    {{ deposits.pending_deposits.length }}
                 </h1>
-                <h6>Pending Transactions</h6>
+                <h6>Pending Deposits</h6>
             </div>
              <div class="price--options-3 price--options">
-                <h1>
-                    45
+                 <h1 v-if="deposits">
+                    {{ deposits.completed_deposits.length }}
                 </h1>
-                <h6>Completed Transactions</h6>
+                <h6>Completed Deposits</h6>
             </div>
              <div class="price--options-4 price--options">
-                <h1>
-                    45
+                 <h1 v-if="deposits">
+                    {{ deposits.canceled_deposits.length }}
                 </h1>
-                <h6>Cancelled Transactions</h6>
+                <h6>Cancelled Deposits</h6>
             </div>
         </section>
 
-        <!-- Transactions Table  -->
+        <!-- Deposits Table  -->
         <section class="mt-4">
-            <h3 class="text-bold">Recent Transactions</h3>
+            <h3 class="text-bold">Recent Deposits</h3>
              <div class="mt-4 other--tables">
                      <div class="table-responsive">
                             <table class="table table-centered table-nowrap mb-0">
@@ -45,40 +45,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                 <tr>
-                                     <td>EF34152645</td>
-                                    <td>24/12/2022</td>
-                                    <td>&#8358;230,000</td>
-                                    <td>0.002BNB</td>
-                                    <td> <span class="cancelled">Cancelled</span> </td>
-                                </tr>
-                                <tr>
-                                     <td>EF34152645</td>
-                                    <td>24/12/2022</td>
-                                    <td>&#8358;230,000</td>
-                                    <td>0.002BNB</td>
-                                    <td> <span class="completed">Completed</span> </td>
-                                </tr>
-                                <tr>
-                                     <td>EF34152645</td>
-                                    <td>24/12/2022</td>
-                                    <td>&#8358;230,000</td>
-                                    <td>0.002BNB</td>
-                                    <td> <span class="pending">Pending</span> </td>
-                                </tr>
-                                <tr>
-                                     <td>EF34152645</td>
-                                    <td>24/12/2022</td>
-                                    <td>&#8358;230,000</td>
-                                    <td>0.002BNB</td>
-                                    <td> <span class="cancelled">Cancelled</span> </td>
-                                </tr>
-                                <tr>
-                                     <td>EF34152645</td>
-                                    <td>24/12/2022</td>
-                                    <td>&#8358;230,000</td>
-                                    <td>0.002BNB</td>
-                                    <td> <span class="cancelled">Cancelled</span> </td>
+                                 <tr v-for="deposit in pending" :key="deposit.id">
+                                     <td> {{ deposit.ref_no }} </td>
+                                    <td> {{ timeStamp(deposit.created_at) }} </td>
+                                    <td>&#8358; {{ nairaFilter(deposit.amount_naira) }} </td>
+                                    <td>{{deposit.amount_bnb}}BNB</td>
+                                    <td> <span :class="[deposit.status]">{{ deposit.status}} </span> </td>
                                 </tr>
                                 
                                 </tbody>
@@ -88,3 +60,31 @@
         </section>
     </div>
 </template>
+
+<script>
+import { nairaFilter, percentFilter, timeStamp } from '@/plugins/filter'
+export default {
+    data(){
+        return {
+            nairaFilter, percentFilter, timeStamp,
+            deposits: []
+        }
+    },
+    methods: {
+        async getDeposits() {
+            let res = await this.$axios.get('/user-dashboard')
+            console.log(res.data.user.data[0]);
+            this.deposits =res.data.user.data[0];
+            this.pending = res.data.user.data[0].pending_deposits
+        }
+    },
+    async created(){
+        this.getDeposits();
+    },
+    computed:{
+        totalDeposits(){
+            return Number(this.deposits.canceled_deposits.length) + Number(this.deposits.completed_deposits.length) + Number(this.deposits.pending_deposits.length)
+        }
+    }
+}
+</script>

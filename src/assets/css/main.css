@@ -212,7 +212,7 @@ br {
     padding: 0.8rem 1rem;
     border-radius: 10px;
     border: 1px solid var(--main-color);
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .login--box a {
@@ -717,4 +717,14 @@ br {
     padding: 0.6rem;
     border-radius: 5px;
     z-index: 999999;
+}
+
+.logout {
+    background-color: var(--secondary-color);
+    padding: 0.3rem 1.2rem;
+    border-radius: 5px;
+}
+
+.logout:hover {
+    cursor: pointer;
 }

@@ -3,7 +3,7 @@
         <app-drawer/>
         <app-header/>
         <div id="main--dashboard">
-            <router-view/>
+            <router-view :key="$route.fullPath"/>
         </div>
     </div>
 </template>
@@ -15,25 +15,17 @@ export default {
     components:{
         AppDrawer, AppHeader
     },
-    mounted(){
-        const toggller = document.getElementById("tog");
-        const sidee = document.getElementById('side-bar');
-        const closeMenu = document.getElementById('close-menu');
-        const bodyEl = document.getElementsByTagName('body')[0]
-        document.onclick = function(e) {
-          if(e.target.id !== "tog" && e.target.id !== "side-bar"){
-            sidee.classList.remove('active');
-            bodyEl.classList.remove("active");
-          }
-        }
-        toggller.onclick = function(){
-        sidee.classList.toggle('active');
-        bodyEl.classList.toggle("active")
-        }
-        closeMenu.onclick = function(){
-        sidee.classList.remove('active');
-        bodyEl.classList.remove("active")
-        }
+   async created(){
+        if (!this.$store.getters.isLoggedIn) {
+            this.$toastify({
+          text: `Please Login`,
+          className: "alert",
+          style: {
+            background: "red",
+          },
+        }).showToast();
+      this.$router.push("/sign-in");
     }
+   }
 }
 </script>

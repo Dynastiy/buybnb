@@ -2,11 +2,11 @@ import Vue from 'vue'
 import "toastify-js/src/toastify.css"
 import Toastify from 'toastify-js'
 import store from '../store'
-
+import router from '../router'
 Vue.use(Toastify)
 
 import axios from "axios";
-const BASE_URL = 'https://dev.szcmerchant.com/api';
+const BASE_URL = 'https://api.buybnb.io/api';
 
 const instance = axios.create({
     baseURL: BASE_URL,
@@ -15,7 +15,7 @@ const instance = axios.create({
         // "Access-Control-Allow-Origin": "*",
         // "Access-Control-Allow-Headers": "*",
         // "Access-Control-Allow-Methods": 'GET, HEAD, PUT, PATCH, POST, DELETE'
-        "Authorization": `Token ${store.state.token}`
+        "Authorization": `bearer ${store.state.token}`
     }
 });
 
@@ -27,7 +27,7 @@ instance.interceptors.request.use(function(config) {
     const token = `${store.state.token}`;
 
     if (token) {
-        config.headers['Authorization'] = `Token ${store.state.token}`;
+        config.headers['Authorization'] = `bearer ${store.state.token}`;
     }
 
     return config;
@@ -44,15 +44,18 @@ instance.interceptors.response.use(function(response) {
     return response;
 }, function(error) {
 
-    // console.log(error);
+    console.log(error.response);
     // console.log(error.response.data.detail);
     Toastify({
-        text: error.response.data.detail,
+        text: error.response.data.message,
         className: "info",
         style: {
             background: "red",
         }
     }).showToast();
+    if (error.response.data.message === 'Unauntheticated') {
+        router.push('/sign-in')
+    }
 
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error

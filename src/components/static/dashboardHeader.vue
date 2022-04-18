@@ -19,10 +19,11 @@
                     <span class="material-icons">
                         notifications
                     </span>
-                    <span class="user--avatar j">
-                       J
+                    <span v-if="currentUser.name" class="user--avatar " :class="[currentUser.name.charAt(0)]">
+                      {{ currentUser.name.charAt(0) }}
                     </span>
-                    <span class="d-lg-block">Vue Js</span>
+                    <span class="d-lg-block"> {{currentUser.name}} </span>
+                    <span class="logout" @click="logout">Logout</span>
                 </div>
             </div>
         </div>
@@ -64,10 +65,23 @@ export default {
       menu: menu_items,
     };
   },
+  methods:{
+     logout() {
+      this.$store.dispatch('logout');
+      this.$router.push('/sign-in');
+      this.$toastify({
+          text: `Logged Out`,
+          className: "info",
+          style: {
+            background: "green",
+          },
+        }).showToast();
+    }
+  },
    mounted(){
         const toggller = document.getElementById("tog");
         const sidee = document.getElementById('side-bar');
-        const closeMenu = document.getElementById('close-menu');
+        // const closeMenu = document.getElementById('close-menu');
         const bodyEl = document.getElementsByTagName('body')[0]
         document.onclick = function(e) {
           if(e.target.id !== "tog" && e.target.id !== "side-bar"){
@@ -79,10 +93,15 @@ export default {
         sidee.classList.toggle('active');
         bodyEl.classList.toggle("active")
         }
-        closeMenu.onclick = function(){
-        sidee.classList.remove('active');
-        bodyEl.classList.remove("active")
-        }
+        // closeMenu.onclick = function(){
+        // sidee.classList.remove('active');
+        // bodyEl.classList.remove("active")
+        // }
+    },
+    computed:{
+      currentUser(){
+        return this.$store.getters.getUser
+      }
     }
      
 }

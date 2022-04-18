@@ -24,7 +24,7 @@ const items = [{
                 icon: 'task_alt'
             },
             {
-                id: 2,
+                id: 3,
                 menu_item: "Cancelled",
                 url: '/cancelled',
                 icon: 'cancel'
@@ -32,30 +32,24 @@ const items = [{
         ]
 
     },
-    {
-        id: 3,
-        menu_header: "navigation",
-        sub_menu: [{
-                id: 1,
-                menu_item: "Account",
-                url: '/accounts',
-                icon: 'settings'
-            },
-            {
-                id: 2,
-                menu_item: "Notifications",
-                url: '/notifications',
-                icon: 'notifications'
-            },
-            {
-                id: 2,
-                menu_item: "Logout",
-                url: '/sign-in',
-                icon: 'logout'
-            },
-        ]
+    // {
+    //     id: 3,
+    //     menu_header: "navigation",
+    //     sub_menu: [{
+    //             id: 1,
+    //             menu_item: "Account",
+    //             url: '/accounts',
+    //             icon: 'settings'
+    //         },
+    //         {
+    //             id: 2,
+    //             menu_item: "Notifications",
+    //             url: '/notifications',
+    //             icon: 'notifications'
+    //         },
+    //     ]
 
-    },
+    // },
 
 ]
 
