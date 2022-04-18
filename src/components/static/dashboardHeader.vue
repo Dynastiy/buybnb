@@ -19,10 +19,10 @@
                     <span class="material-icons">
                         notifications
                     </span>
-                    <span v-if="currentUser.name" class="user--avatar " :class="[currentUser.name.charAt(0)]">
+                    <span v-if="currentUser.name" class="user--avatar text-capitalize" :class="[currentUser.name.charAt(0)]">
                       {{ currentUser.name.charAt(0) }}
                     </span>
-                    <span class="d-lg-block"> {{currentUser.name}} </span>
+                    <span class="d-lg-block text-capitalize"> {{currentUser.name}} </span>
                     <span class="logout" @click="logout">Logout</span>
                 </div>
             </div>
