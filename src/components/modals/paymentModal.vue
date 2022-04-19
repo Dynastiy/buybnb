@@ -46,7 +46,7 @@
               Upload proof to receive <span class="span"> {{ amount.amount_bnb }} BNB</span> worth
               <span class="text-success"> &#8358;{{ amount.amount_ngn }} </span>
             </h4>
-            <div class="mt-3">
+            <div class="mt-3" v-if="!loading">
                 <div class="center" >
                     <div class="form-input">
                     <div class="preview">
@@ -67,6 +67,10 @@
                         <input class="form-control" v-model="payload.wallet_address" type="text" name="" id="">
                     </div>
                 </div>
+            </div>
+
+            <div v-else>
+              <p class="text-danger" >Please Wait...</p>
             </div>
 
             <div class="mt-3 d-flex" style="gap:10px">
@@ -100,6 +104,7 @@ export default {
   props: ["amount"],
   data() {
     return {
+      loading: false,
       bank_list: banks,
       slide1: true,
       slide2: false,
@@ -154,11 +159,12 @@ export default {
       slide2.classList.remove("active");
     },
     async finish(){
+      this.loading = true;
       try {
         let formData = new FormData();
           formData.append("wallet_address", this.payload.wallet_address);
-          formData.append("amount_bnb", this.payload.amount_bnb);
-          formData.append("amount_naira", this.payload.amount_ngn);
+          formData.append("amount_bnb", this.getAmount.amount_bnb);
+          formData.append("amount_naira", this.getAmount.amount_ngn);
           formData.append("payment_proof", this.payload.payment_proof);
           let res = await this.$axios.post('/create-deposit', formData)
           console.log(res);
@@ -167,7 +173,7 @@ export default {
         } catch (error) {
           console.log(error);
         }
-         
+         this.loading = false;
     },
     getVal(id) {
 
@@ -194,7 +200,11 @@ export default {
   mounted() {
     var slide1 = document.getElementById("slide1");
     slide1.classList.add("active");
-     
   },
+  computed:{
+    getAmount(){
+      return this.$store.getters.getAmounts
+    }
+  }
 };
 </script>

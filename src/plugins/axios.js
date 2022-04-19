@@ -46,6 +46,10 @@ instance.interceptors.response.use(function(response) {
 
     console.log(error.response);
     // console.log(error.response.data.detail);
+    if (error.response.data.message === 'Unauthenticated.') {
+        router.push('/sign-in')
+            // alert("Hello World")
+    }
     Toastify({
         text: error.response.data.message,
         className: "info",
@@ -53,9 +57,7 @@ instance.interceptors.response.use(function(response) {
             background: "red",
         }
     }).showToast();
-    if (error.response.data.message === 'Unauntheticated') {
-        router.push('/sign-in')
-    }
+    console.log(error.response.data.message)
 
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error

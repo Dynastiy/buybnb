@@ -99,7 +99,7 @@ You can logged into your dashboard to monitor your transaction STATUS if SUCCESF
     <payment-modal v-show="paymentModal" @close="closeModal" :amount="amount"/>
 
     <!-- BAck to Top -->
-    <back-to-top @btnClick="goToTop" @closePopup="closePopup" :popup="popup" ></back-to-top>
+    <back-to-top  @closePopup="closePopup" :popup="popup" ></back-to-top>
   </div>
 </template>
 
@@ -137,47 +137,53 @@ export default {
             background: "red",
           },
         }).showToast();
-      this.$router.push("/sign-in");
-            let amount = this.amount
-             this.$store.dispatch("amounts", { amount });
+      // this.$router.push("/sign-in");
       this.$router.push({path:'/sign-in', query:{ redirects: 'login'}});
     }
     else{
     this.paymentModal = true
     }
-        
+        let amount = this.amount
+        this.$store.dispatch("amounts", { amount });
     },
     buy100(){
       this.amount.amount_ngn = 100000;
-    let amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
-             this.amount.amount_bnb = amount;
-             this.paymentModal = true
+    let store_amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
+             this.amount.amount_bnb = store_amount;
+             this.paymentModal = true;
+             let amount = this.amount
+             this.$store.dispatch("amounts", {amount})
     },
     buy200(){
-      this.amount.amount_ngn =200000;
-    let amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
-             this.amount.amount_bnb = amount;
-             this.paymentModal = true
+      this.amount.amount_ngn = 200000;
+    let store_amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
+             this.amount.amount_bnb = store_amount;
+             this.paymentModal = true;
+             let amount = this.amount
+             this.$store.dispatch("amounts", {amount})
     },
     buy500(){
       this.amount.amount_ngn = 500000;
-    let amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
-             this.amount.amount_bnb = amount;
-             this.paymentModal = true
+    let store_amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
+             this.amount.amount_bnb = store_amount;
+             this.paymentModal = true;
+             let amount = this.amount
+             this.$store.dispatch("amounts", {amount})
     },
     buym(){
       this.amount.amount_ngn = 1000000;
-    let amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
-             this.amount.amount_bnb = amount;
-             this.paymentModal = true
+    let store_amount = Number(this.amount.amount_ngn) / (this.bnb_rate * this.naira_rate);
+             this.amount.amount_bnb = store_amount;
+             this.paymentModal = true;
+             let amount = this.amount
+             this.$store.dispatch("amounts", {amount})
     },
     
     async getBnB(){
-        axios.get('https://api.coincap.io/v2/assets/binance-coin')
-        .then((response)=>{
+        let response = await axios.get('https://api.coincap.io/v2/assets/binance-coin')
             this.bnb_rate = response.data.data.priceUsd
             console.log(this.bnb_rate);
-        })
+            
     },
     closePopup(){
       this.popup = false
@@ -196,24 +202,25 @@ export default {
          this.amount.amount_ngn = amount
         }
     },
-    goToTop(){
-       window.location = "#";
-    }
     },
     async created(){
-        // this.getNaira();
         this.getBnB();
          if (this.$store.getters.isLoggedIn) {
            this.disabled = false;
-                 }
+        }
+        
     },
     computed:{
       checkLogin(){
             return this.$store.getters.isLoggedIn
         }
     },
-    async beforeCreated(){
-      this.getBnB()
+     mounted(){
+this.getBnB()
+//       setInterval(() => {
+//         this.getBnB();
+        
+//       }, 1000);
     }
 }
 </script>

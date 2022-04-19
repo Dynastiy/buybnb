@@ -3,7 +3,7 @@
         <app-drawer/>
         <app-header/>
         <div id="main--dashboard">
-            <router-view :key="$route.fullPath"/>
+            <router-view />
         </div>
     </div>
 </template>

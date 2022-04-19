@@ -83,12 +83,7 @@ export default {
             background: "green",
           },
         }).showToast();
-
-        if (this.$route.query.redirects === 'login') {
-          this.$router.push('/')
-        } else {
-          this.$router.push('/')
-        }
+          this.$router.replace('/')
       } catch (error) {
         console.log(error);
         // this.errorMsg = error.response.error;

@@ -86,7 +86,7 @@ export default {
       try {
         let res = await this.$axios.get("/user-dashboard");
         console.log(res.data.user.data[0]);
-        // this.deposits = res.data.user.data[0].canceled_deposits;
+        this.deposits = res.data.user.data[0].canceled_deposits;
       } catch (error) {
         console.log(error);
       }
