@@ -18,22 +18,23 @@
               <span class="text-success"> &#8358;{{ amount.amount_ngn }} </span>
             </h4>
             <div class="mt-3">
-              <label for="">Select Bank</label>
-              <select id="my-select" class="bank--options mt-1 d-block" name="" @change="getNum">
+              <!-- <label for="">Select Bank</label> -->
+              <!-- <select id="my-select" class="bank--options mt-1 d-block" name="" @change="getNum">
                 <option value="" selected>---</option>
                 <option v-for="bank in bank_list" :value="bank.id" :key="bank.id" >
                   {{ bank.name }}
                 </option>
-              </select>
+              </select> -->
 
-              <div class="bank--details mt-3" v-if="account_details.account_name">
+              <div class="bank--details mt-3" >
+                <h5 class="mb-3">Bank Name: <span> Wema Bank </span></h5>
                 <h5 class="mb-3">Account Name: <span> {{ account_details.account_name }} </span></h5>
                 
                 <h5>Account Number: <span> {{ account_details.account_number }} </span>
                 <span class="material-icons" type="button" style="font-size:16px; color: #ff0000"
- v-clipboard:copy="account_details.account_number"
- v-clipboard:success="onCopy"
- v-clipboard:error="onError">content_copy</span></h5>
+                  v-clipboard:copy="account_details.account_number"
+                  v-clipboard:success="onCopy"
+                  v-clipboard:error="onError">content_copy</span></h5>
               </div>
             </div>
 
@@ -112,7 +113,8 @@ export default {
       completed: false,
       copiedText: '',
       account_details: {
-
+        account_number: 7358059127,
+        account_name: "Perfect Merchandise",
       },
       payload: {
         wallet_address: '',

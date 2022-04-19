@@ -8,25 +8,29 @@
             <h4>&#8358; 100,000</h4>
             <h6 class="my-3">Get</h6>
             <h2>  ~{{ (100000 / (naira_rate*bnb_rate)).toFixed(4) }} <span class="span2">BNB</span> </h2>
-            <button class="buy--btn" :disabled="disabled" @click="buy100">Buy</button>
+            <button class="buy--btn" v-if="checkLogin" @click="buy100">Buy</button>
+            <button class="buy--btn" v-else  @click="register">Register</button>
           </div>
           <div class="price--options price--options-2">
             <h4>&#8358; 200,000</h4>
             <h6 class="my-3">Get</h6>
             <h2>  ~{{ (200000 / (naira_rate*bnb_rate)).toFixed(4) }} <span class="span2">BNB</span></h2>
-            <button class="buy--btn" :disabled="disabled" @click="buy200">Buy</button>
+            <button class="buy--btn" v-if="checkLogin"  @click="buy200">Buy</button>
+             <button class="buy--btn" v-else  @click="register">Register</button>
           </div>
           <div class="price--options price--options-3">
             <h4>&#8358; 500,000</h4>
             <h6 class="my-3" >Get</h6>
             <h2> ~{{ (500000 / (naira_rate*bnb_rate)).toFixed(4) }}<span class="span2">BNB</span></h2>
-            <button class="buy--btn" :disabled="disabled" @click="buy500">Buy</button>
+            <button class="buy--btn" v-if="checkLogin"  @click="buy500">Buy</button>
+             <button class="buy--btn" v-else  @click="register">Register</button>
           </div>
           <div class="price--options price--options-4">
             <h4>&#8358; 1M</h4>
             <h6 class="my-3">Get</h6>
             <h2> ~{{ (1000000 / (naira_rate*bnb_rate)).toFixed(4) }}<span class="span2">BNB</span></h2>
-            <button class="buy--btn" :disabled="disabled" @click="buym">Buy</button>
+            <button class="buy--btn" v-if="checkLogin"  @click="buym">Buy</button>
+             <button class="buy--btn" v-else  @click="register">Register</button>
           </div>
         </div>
       </div>
@@ -35,7 +39,7 @@
       <!-- Enter Amount -->
       <div class="container" id="amount">
           <h2 class="text-center mb-4">Enter your Amount</h2>
-          <p class="text-center text-danger" v-if="!checkLogin">Please <router-link class="text-white" to="/sign-in">Login</router-link> to buy BNB </p>
+          <p class="text-center text-danger" v-if="!checkLogin">Please <router-link class="text-white" to="/register">Register</router-link> or  <router-link class="text-white" to="/sign-in">Login</router-link> to buy BNB </p>
         <div class="amount--container">
           
           <div>
@@ -46,7 +50,8 @@
             <label class="text-left" for="">BNB</label>
             <input type="number form-control"  v-model="amount.amount_bnb" @keyup="exchange_bnb" :disabled="disabled"/>
           </div>
-          <div><button class="buy--btn w-100" :disabled="disabled" @click="showPaymentModal">Buy</button></div>
+          <div><button class="buy--btn w-100" v-if="checkLogin" @click="showPaymentModal">Buy</button>
+           <button class="buy--btn" v-else  @click="register">Register</button></div>
         </div>
       </div>
     </section>
@@ -195,6 +200,9 @@ export default {
              this.amount.amount_bnb = amount
         }
     },
+    register(){
+      this.$router.push("/register")
+    },
     exchange_bnb(){
       if (this.$store.getters.isLoggedIn) {
             this.disabled = false;
@@ -213,7 +221,7 @@ export default {
     computed:{
       checkLogin(){
             return this.$store.getters.isLoggedIn
-        }
+      }
     },
      mounted(){
 this.getBnB()
