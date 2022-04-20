@@ -82,7 +82,7 @@ You can logged into your dashboard to monitor your transaction STATUS if SUCCESF
         </h2>
         <div class="social--media mt-4">
           <div class="whatsapp social" >
-            <a href="#">
+            <a href="https://chat.whatsapp.com/CC7gMzPetgv08EE0EchOFi">
             <span>START CHAT</span>
             <img src="@/assets/img/whatsapp.svg" width="40" alt="">
             </a>
