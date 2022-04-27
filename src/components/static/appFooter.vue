@@ -15,7 +15,7 @@
                   Quicklinks
               </h4>
               <ul class="list-unstlyed">
-                  <li> <a target="_blank" href="https://zugacoin.io">Blockmay.com</a> </li>
+                  <!-- <li> <a target="_blank" href="https://zugacoin.io">Blockmay.com</a> </li> -->
                   <li><router-link to="/sign-in">Login</router-link></li>
                   <li><router-link to="register">Register</router-link></li>
                   <!-- <li> <a target="_blank" href="https://africanapp.store/">Merchant Wallet</a> </li>
@@ -36,7 +36,9 @@
                   Social
               </h4>
               <ul class="list-unstlyed d-flex align-items-center" style="gap:10px">
-                  <!-- <a target="_blank" href="https://facebook.com/bishopsamzugaofficial"> <span class="material-icons">Facebook</span> </a> -->
+                  <a target="_blank" href="http://facebook.com/officialbuybnb/"> 
+                  Facebook
+                  </a>
                   <!-- <a target="_blank" href="https://t.me/officialzugacoin"><i class="fa fa-telegram" aria-hidden="true"></i></a> -->
               </ul>
           </div>
@@ -50,3 +52,7 @@
     </footer>
   </div>
 </template>
+
+<script>
+  
+</script>
