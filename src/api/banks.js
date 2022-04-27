@@ -10,7 +10,7 @@ const banks = [{
         name: "Zenith Bank",
         slug: "zenith",
         account_number: '1014978125',
-        account_name: "Unlimited Tier",
+        account_name: "Tetric Global Enterprise",
     },
     // {
     //     id: 3,
