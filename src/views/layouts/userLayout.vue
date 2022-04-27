@@ -3,6 +3,9 @@
         <app-drawer/>
         <app-header/>
         <div id="main--dashboard">
+            <button class="login">
+              <router-link to="/">BuyBnB</router-link>
+            </button>
             <router-view />
         </div>
     </div>
