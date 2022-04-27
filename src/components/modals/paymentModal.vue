@@ -18,16 +18,16 @@
               <span class="text-success"> &#8358;{{ amount.amount_ngn }} </span>
             </h4>
             <div class="mt-3">
-              <!-- <label for="">Select Bank</label> -->
-              <!-- <select id="my-select" class="bank--options mt-1 d-block" name="" @change="getNum">
+              <label for="">Select Bank</label>
+              <select id="my-select" class="bank--options mt-1 d-block" name="" @change="getNum">
                 <option value="" selected>---</option>
                 <option v-for="bank in bank_list" :value="bank.id" :key="bank.id" >
                   {{ bank.name }}
                 </option>
-              </select> -->
+              </select>
 
-              <div class="bank--details mt-3" >
-                <h5 class="mb-3">Bank Name: <span> Wema Bank </span></h5>
+              <div class="bank--details mt-3" v-if="account">
+                <h5 class="mb-3">Bank Name: <span> {{ account_details.name }} </span></h5>
                 <h5 class="mb-3">Account Name: <span> {{ account_details.account_name }} </span></h5>
                 
                 <h5>Account Number: <span> {{ account_details.account_number }} </span>
@@ -84,8 +84,12 @@
                 check
             </span>
             <h3 class="text-success">Success</h3>
-            <h6>Funds will be disbursed soon!!!</h6>
-            <p>View Dashboard for Status</p>
+            <h6 class="mb-3">Funds will be disbursed in... 
+              
+            </h6>
+            <h4 id="countdown" class="mt-4">  </h4>
+    <progress value="0" max="180" id="progressBar"></progress>
+            <!-- <p>View Dashboard for Status</p> -->
              <div class="mt-3">
               <button class="continue--button" @click="goToDashboard">Go to Dashboard</button>
             </div>
@@ -112,16 +116,14 @@ export default {
       image: '',
       completed: false,
       copiedText: '',
-      account_details: {
-        account_number: 7358059127,
-        account_name: "Perfect Merchandise",
-      },
+      account_details: {},
       payload: {
         wallet_address: '',
         payment_proof: null,
         amount_bnb: this.amount.amount_bnb,
         amount_ngn: this.amount.amount_ngn
-      }
+      },
+      account: false,
     };
   },
   methods: {
@@ -140,11 +142,13 @@ export default {
     },
       buttonClick() {
       this.$emit('close')
+      
     },
      getNum(){
         var priceOptions = document.getElementById("my-select");
       var selOption = priceOptions.options[priceOptions.selectedIndex].value;
         this.getVal(Number(selOption))
+        this.account = true
       },
     nextSlide() {
       this.slide1 = false;
@@ -172,6 +176,16 @@ export default {
           console.log(res);
           this.slide2 = false;
           this.completed = true
+           var timeleft = 180;
+          document.getElementById("countdown").innerHTML = timeleft;
+          var downloadTimer = setInterval(function(){
+            if(timeleft <= 0){
+              clearInterval(downloadTimer);
+            }
+            document.getElementById("countdown").innerHTML = timeleft + "secs";
+            document.getElementById("progressBar").value = 180 - timeleft;
+            timeleft -= 1;
+          }, 1000);
         } catch (error) {
           console.log(error);
         }

@@ -132,6 +132,8 @@ export default {
     methods: {
         closeModal(){
             this.paymentModal = false
+            this.amount.amount_bnb = ''
+            this.amount.amount_ngn = ''
         },
         showPaymentModal(){
          if (!this.$store.getters.isLoggedIn) {
@@ -146,7 +148,18 @@ export default {
       this.$router.push({path:'/sign-in', query:{ redirects: 'login'}});
     }
     else{
-    this.paymentModal = true
+    if (this.amount.amount_bnb == '' && this.amount.amount_bnb == '' || this.amount.amount_bnb < 0 && this.amount.amount_bnb < 0) {
+      this.$toastify({
+          text: `Enter a valid amount of BNB or NGN`,
+          className: "alert",
+          style: {
+            background: "red",
+          },
+        }).showToast();
+    }
+    else{
+      this.paymentModal = true
+    }
     }
         let amount = this.amount
         this.$store.dispatch("amounts", { amount });
@@ -225,6 +238,8 @@ export default {
     },
      mounted(){
 this.getBnB()
+
+   
 //       setInterval(() => {
 //         this.getBnB();
         

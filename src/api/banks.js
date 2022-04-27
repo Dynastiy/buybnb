@@ -1,24 +1,24 @@
 const banks = [{
         id: 1,
-        name: "First Bank",
-        slug: "access",
-        account_number: '3110894491',
-        account_name: "Akpan Idem Anthony",
+        name: "Wema Bank",
+        slug: "wema",
+        account_number: '7358059127',
+        account_name: "Perfect Merchandise",
     },
     {
         id: 2,
-        name: "GTB",
-        slug: "gtb",
-        account_number: '0658338408',
-        account_name: "Ndifreke Udobong",
+        name: "Zenith Bank",
+        slug: "zenith",
+        account_number: '1014978125',
+        account_name: "Unlimited Tier",
     },
-    {
-        id: 3,
-        name: "Kuda Bank",
-        slug: "kuda",
-        account_number: '2023399075',
-        account_name: "Akpan Idem Anthony",
-    },
+    // {
+    //     id: 3,
+    //     name: "Kuda Bank",
+    //     slug: "kuda",
+    //     account_number: '2023399075',
+    //     account_name: "Akpan Idem Anthony",
+    // },
 ];
 
 export default banks;
