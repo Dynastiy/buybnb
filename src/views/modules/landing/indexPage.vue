@@ -3,6 +3,7 @@
     <div class="hero--section" id="top">
       <div class="container">
         <h1>Buy <span class="span">BNB</span> Instantly with <span class="text-success">NGN</span></h1>
+
         <div class="prices">
           <div class="price--options price--options-1">
             <h4>&#8358; 100,000</h4>
@@ -157,6 +158,15 @@ export default {
           },
         }).showToast();
     }
+    else if(this.amount.amount_ngn <= 2000) {
+        this.$toastify({
+                  text: `Enter an amount above ₦2000`,
+                  className: "alert",
+                  style: {
+                    background: "red",
+                  },
+                }).showToast();
+            }
     else{
       this.paymentModal = true
     }

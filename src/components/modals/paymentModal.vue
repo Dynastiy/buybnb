@@ -181,6 +181,10 @@ export default {
           var downloadTimer = setInterval(function(){
             if(timeleft <= 0){
               clearInterval(downloadTimer);
+              var timeralert = document.getElementById("countdown")
+              var progressBar = document.getElementById("progressBar")
+              timeralert.style.display = "none"
+              progressBar.style.display = "none"
             }
             document.getElementById("countdown").innerHTML = timeleft + "secs";
             document.getElementById("progressBar").value = 180 - timeleft;
