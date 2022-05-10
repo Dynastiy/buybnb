@@ -9,6 +9,7 @@
             <p class="">
                BUYBNB.IO ACCEPTS PAYMENTS DONE MANUALLY INTO A SPECIFIC BANK ACCOUNTS AND CONFIRMATION IS DONE 10MIN AFTER A SUCCESFUL TRANSACTION. 
             </p>
+            
           </div>
           <div class=" col-sm-6 col-lg-3">
               <h4 class="footer--header">

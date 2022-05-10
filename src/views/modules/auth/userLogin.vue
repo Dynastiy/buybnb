@@ -31,6 +31,9 @@
                 >* {{ error }}
               </small>
             </div>
+            <div class="text-right">
+            <span class=""> <router-link to="/forgot-password" class="text-info font-weight-bold">Forgot Password?</router-link> </span>
+          </div>  
             <div>
               <div class="d-flex justify-content-center" v-if="loading">
                 <div class="spinner-border" role="status">

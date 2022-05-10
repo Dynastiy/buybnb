@@ -104,18 +104,16 @@ You can logged into your dashboard to monitor your transaction STATUS if SUCCESF
     <!-- payment Modal  -->
     <payment-modal v-show="paymentModal" @close="closeModal" :amount="amount"/>
 
-    <!-- BAck to Top -->
-    <back-to-top  @closePopup="closePopup" :popup="popup" ></back-to-top>
   </div>
 </template>
 
 <script>
 import PaymentModal from '@/components/modals/paymentModal.vue';
-import BackToTop from '@/components/modals/backToTop.vue'
+// import BackToTop from '@/components/modals/backToTop.vue'
 import axios from 'axios'
 export default {
     components:{
-        PaymentModal, BackToTop
+        PaymentModal
     },
     data(){
         return {
