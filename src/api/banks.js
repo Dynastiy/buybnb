@@ -5,13 +5,13 @@ const banks = [{
         account_number: '7358059127',
         account_name: "Perfect Merchandise",
     },
-    {
-        id: 2,
-        name: "Zenith Bank",
-        slug: "zenith",
-        account_number: '1014978125',
-        account_name: "Tetric Global Enterprise",
-    },
+    // {
+    //     id: 2,
+    //     name: "Zenith Bank",
+    //     slug: "zenith",
+    //     account_number: '1014978125',
+    //     account_name: "Tetric Global Enterprise",
+    // },
     // {
     //     id: 3,
     //     name: "Kuda Bank",
